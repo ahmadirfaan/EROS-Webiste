@@ -9,9 +9,10 @@ import {
 } from '../constants/actionConstant';
 
 
-export function findAll() {
+export function findAll(page) {
     return {
-        type: FIND_ALL_EMPLOYEE
+        type: FIND_ALL_EMPLOYEE,
+        page: page
     }
 }
 

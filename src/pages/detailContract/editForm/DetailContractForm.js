@@ -35,9 +35,9 @@ function DetailContractForm({contract, findById, isLoading, save, error, savedCo
         if (id && contract) {
             setData({
                 id: contract?.id,
-                employeeId: contract.employeeId.id,
+                employeeId: contract?.employeeId.id,
                 typeContract: contract.typeContract === null ? null : contract.typeContract,
-                benefitRegistrationStatus: contract.benefitRegistrationStatus === null ? null : contract?.benefitRegistrationStatus,
+                benefitRegistrationStatus: contract.benefitRegistrationStatus === null ? null : contract?.benefitRegistrationStatus ,
                 startDateContract: contract.startDateContract === null ? null : contract.startDateContract,
                 endDateContract: contract.endDateContract === null ? null : contract.endDateContract,
                 dateOfAcceptancePermanentEmployee: contract.dateOfAcceptancePermanentEmployee === null ? null : contract.dateOfAcceptancePermanentEmployee,
@@ -60,7 +60,7 @@ function DetailContractForm({contract, findById, isLoading, save, error, savedCo
     useEffect(() => {
         if (contract) {
             console.log("DETAIL FORM", contract)
-            setEmployeeId(contract.employeeId.id)
+            setEmployeeId(contract?.employeeId.id)
         }
     }, [contract])
 
@@ -82,7 +82,7 @@ function DetailContractForm({contract, findById, isLoading, save, error, savedCo
 
     useEffect(() => {
         if (savedContract) {
-            swal("Berhasil", "Data karyawan berhasil ditambahkan!", "success")
+            swal("Berhasil", "Data karyawan berhasil diubah!", "success")
             history.push("/dashboard/hc/contract")
         }
     }, [savedContract, history])
@@ -118,7 +118,7 @@ function DetailContractForm({contract, findById, isLoading, save, error, savedCo
                                                                     <Label> Status Asuransi</Label>
                                                                     <Input onChange={handleChange} type="select"
                                                                            name="benefitRegistrationStatus" value={data?.benefitRegistrationStatus}>
-                                                                        <option selected disabled hidden>-- Choose --</option>
+                                                                        <option selected disabled hidden>-- Pilihan --</option>
                                                                         {
                                                                             data?.benefitRegistrationStatus === null ?
                                                                                 benefitRegistrationStatus.map((element, index) =>
@@ -129,8 +129,8 @@ function DetailContractForm({contract, findById, isLoading, save, error, savedCo
                                                                                     benefitRegistrationStatus.map((element, index) =>
                                                                                         <option
                                                                                             selected={element === data?.benefitRegistrationStatus}
-                                                                                            key={index} value={element}>
-                                                                                            {element}
+                                                                                            key={index} value={element }>
+                                                                                            {element  == "ON_PROCESS" ? "PROSES" : "SELESAI"}
                                                                                         </option>
                                                                                     )
                                                                                 )
@@ -141,10 +141,24 @@ function DetailContractForm({contract, findById, isLoading, save, error, savedCo
                                                             </div>
                                                             <div className="col-md-6">
                                                                 <div className="form-group">
+                                                                    <Label> Tanggal Karyawan Tetap </Label>
+                                                                    <Input type="date" onChange={handleChange}
+                                                                           value={data?.dateOfAcceptancePermanentEmployee === null ? null : data?.dateOfAcceptancePermanentEmployee }
+                                                                           name="dateOfAcceptancePermanentEmployee"/>
+
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                        <div className="row">
+                                                            <div className="col-md-6">
+                                                                <div className="form-group">
                                                                     <Label> Tipe Kontrak </Label>
                                                                     <Input type="select" defaultValue={data?.typeContract} onChange={handleChange}
                                                                            name="typeContract">
-                                                                        <option selected disabled hidden>-- Choose --</option>
+                                                                        <option selected disabled hidden>-- Pilihan --</option>
                                                                         {
                                                                             data?.typeContract === null ?
                                                                                 typeContract.map((element, index) =>
@@ -156,7 +170,7 @@ function DetailContractForm({contract, findById, isLoading, save, error, savedCo
                                                                                         <option selected={element === data?.typeContract}
                                                                                                 key={index}
                                                                                                 value={element}>
-                                                                                            {element}
+                                                                                            {element == "PKWT" ? "PKWT" : "PROBATION"}
                                                                                         </option>
                                                                                     )
                                                                                 )
@@ -166,10 +180,6 @@ function DetailContractForm({contract, findById, isLoading, save, error, savedCo
                                                                 </div>
 
                                                             </div>
-
-                                                        </div>
-
-                                                        <div className="row">
                                                             <div className="col-md-6">
                                                                 <div className="form-group">
                                                                     <Label> Tanggal Resign </Label>
@@ -179,6 +189,10 @@ function DetailContractForm({contract, findById, isLoading, save, error, savedCo
 
                                                                 </div>
                                                             </div>
+
+
+                                                        </div>
+                                                        <div className="row">
                                                             <div className="col-md-6">
                                                                 <div className="form-group">
                                                                     <Label> Tanggal Mulai Kontrak </Label>
@@ -188,9 +202,6 @@ function DetailContractForm({contract, findById, isLoading, save, error, savedCo
 
                                                                 </div>
                                                             </div>
-
-                                                        </div>
-                                                        <div className="row">
                                                             <div className="col-md-6">
                                                                 <div className="form-group">
                                                                     <Label> Tanggal Habis Kontrak </Label>
@@ -199,7 +210,9 @@ function DetailContractForm({contract, findById, isLoading, save, error, savedCo
 
                                                                 </div>
                                                             </div>
+                                                        </div>
 
+                                                        <div className="row">
                                                             <div className="col-md-6">
                                                                 <div className="form-group">
                                                                     <Label> Penempatan</Label>
@@ -209,19 +222,28 @@ function DetailContractForm({contract, findById, isLoading, save, error, savedCo
                                                                 </div>
 
                                                             </div>
-
-                                                        </div>
-
-                                                        <div className="row">
                                                             <div className="col-md-6">
                                                                 <div className="form-group">
                                                                     <Label> Habis Kontrak</Label>
                                                                     <Input type="select" onChange={handleChange} name="endedContract">
-                                                                        <option selected disabled hidden>-- Choose --</option>
-                                                                        <option value={true}> YA</option>
-                                                                        <option value={false}>TIDAK</option>
+                                                                    {
+                                                                        data?.endedContract === null ?
+                                                                            <>
+                                                                                <option selected disabled hidden>-- Pilihan--</option>
+                                                                                <option value={true}> YA</option>
+                                                                                <option value={false}>TIDAK</option>
+                                                                            </>
+                                                                            :
+                                                                            <>
+                                                                                <option selected={true === data?.endedContract}
+                                                                                        value={true}>YA
+                                                                                </option>
+                                                                                <option selected={false === data?.endedContract}
+                                                                                        value={false}>Tidak
+                                                                                </option>
+                                                                            </>
+                                                                    }
                                                                     </Input>
-
                                                                 </div>
 
                                                             </div>

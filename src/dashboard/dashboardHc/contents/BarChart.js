@@ -10,24 +10,25 @@ function BarChart({findAll, dashboards, error, isLoading}) {
     }, [])
 
     const state = {
-        labels: ['Kacamata', 'Training', 'Melahirkan',
+        labels: ['Kacamata', 'Pelatihan', 'Melahirkan',
             'Asuransi', 'Perjalanan Dinas'],
         datasets: [
             {
                 label:"klaim pengembalian dana",
+                display:false,
                 fill: false,
                 lineTension: 0.5,
                 backgroundColor: [
                     '#292961',
                     '#FFDEAD',
-                    '#0000FF',
+                    '#FFEBCD',
                     '#DEB887',
                     '#E9967A'
                 ],
                 hoverBackgroundColor: [
                     '#292961',
                     '#FFDEAD',
-                    '#0000FF',
+                    '#FFEBCD',
                     '#DEB887',
                     '#E9967A'
                 ],
@@ -45,12 +46,12 @@ function BarChart({findAll, dashboards, error, isLoading}) {
                 options={{
                     title:{
                         display:true,
-                        text:'Jumlah Klaim Pengembalian Dana',
+                        text:'Jumlah Klaim Reimbursement Berdasarkan Kategori',
                         fontSize:20
                     },
                     legend:{
-                        display:true,
-                        position:'top'
+                        display:false,
+                        position:'right'
                     }
                 }}
             />

@@ -5,7 +5,13 @@ import {
     FIND_CONTRACT_BY_ID,
     FIND_CONTRACT_BY_ID_FAILURE,
     FIND_CONTRACT_BY_ID_SUCCESS,
-     SAVE_CONTRACT, SAVE_CONTRACT_FAILURE, SAVE_CONTRACT_SUCCESS,
+    FIND_CONTRACT_BY_NAME, FIND_CONTRACT_BY_NAME_FAILURE, FIND_CONTRACT_BY_NAME_SUCCESS,
+    FIND_EMPLOYEE_BY_NAME,
+    FIND_EMPLOYEE_BY_NAME_FAILURE,
+    FIND_EMPLOYEE_BY_NAME_SUCCESS,
+    SAVE_CONTRACT,
+    SAVE_CONTRACT_FAILURE,
+    SAVE_CONTRACT_SUCCESS,
     UPDATE_CONTRACT,
     UPDATE_CONTRACT_SUCCESS,
 } from "../constants/actionConstant";
@@ -108,6 +114,36 @@ export const saveContract = (state = {...initialState}, action) => {
                 error: null
             };
         case SAVE_CONTRACT_FAILURE:
+            return {
+                data: null,
+                isLoading: false,
+                error: action.error
+            }
+        default:
+            return {
+                ...state,
+                data: null,
+                isLoading: false,
+                error: null
+            }
+    }
+}
+
+export const findContractByName = (state = {...initialState}, action) => {
+    switch (action.type) {
+        case FIND_CONTRACT_BY_NAME:
+            return {
+                ...state,
+                data: null,
+                isLoading: true
+            }
+        case FIND_CONTRACT_BY_NAME_SUCCESS:
+            return {
+                data: action.data,
+                isLoading: false,
+                error: null
+            };
+        case FIND_CONTRACT_BY_NAME_FAILURE:
             return {
                 data: null,
                 isLoading: false,

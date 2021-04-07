@@ -23,7 +23,7 @@ import {watchFindAllCategory} from './categorySagas';
 import {watchFindAllGrade, watchFindGradeById, watchSaveGrade} from "./gradeSagas";
 import {
     watchFindAllContract,
-    watchFindContractById,
+    watchFindContractById, watchFindContractByName,
     watchSaveContract,
     watchUpdateContract
 } from "./detailContractSagas";
@@ -41,7 +41,7 @@ export default function* rootSaga() {
         watchFindAllReimburse(), watchFindReimburseById(), watchFindReimburseByCategory(),watchUpdateReimburse(),
         watchFindAllCategory(),
         watchFindAllGrade(), watchFindGradeById(), watchSaveGrade(),
-        watchFindAllContract(), watchFindContractById(), watchUpdateContract(), watchSaveContract(),
+        watchFindAllContract(), watchFindContractById(), watchUpdateContract(), watchSaveContract(),watchFindContractByName(),
         watchFindAllCount(),
         watchSaveVerified(),
         watchUploadFile(), watchBillById(), watchUpdateFile(),

@@ -15,7 +15,6 @@ import IconButton from "@material-ui/core/IconButton";
 import '../../assets/css/Login.css'
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import sjcl from 'sjcl';
-import GoogleLogin from 'react-google-login';
 
 
 const Login = ({ loginEmployee, login, isLoading }) => {
@@ -26,7 +25,7 @@ const Login = ({ loginEmployee, login, isLoading }) => {
     });
 
     const emailUser = ["arsytamawisa@gmail.com", "solehsolihin2021@gmail.com"]
-    
+
     let responseGoogle = response => {
         const email = response.profileObj.email;
         console.log(email);
@@ -56,6 +55,7 @@ const Login = ({ loginEmployee, login, isLoading }) => {
 
 
     const [error, setError] = useState({})
+    const [role, setRole] = useState()
 
     const handleClickShowPassword = () => {
         setValues({ ...values, showPassword: !values.showPassword });
@@ -65,49 +65,38 @@ const Login = ({ loginEmployee, login, isLoading }) => {
         event.preventDefault()
     }
 
-    console.log("login", data)
 
     useEffect(() => {
-
-        if (localStorage.getItem('email') == "" || localStorage.getItem('email') == null) {
-            if (login) {
-                if (login.data?.code === 200) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'success',
-                        text: 'Login success...',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
-                    if (login.data?.data?.role.id === 1) {
-                        localStorage.setItem('email', login.data.data.email)
-                        localStorage.setItem('role', '1')
-                        history.push("/dashboard/hc")
-                    } else {
-                        localStorage.setItem('email', login.data.data.email)
-                        localStorage.setItem('role', '2')
-                        history.push("/dashboard/finance")
-                    }
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Ooops..',
-                        text: 'Something went wrong!',
-                        showConfirmButton: false,
-                        timer: 2000,
-                    })
-                }
-            }
-        } else {
-            if (localStorage.getItem('role') == '1') {
-                history.push("/dashboard/hc")
+        if (login) {
+            if (login?.data?.message == "Login Success") {
+                setRole(login.data?.data?.role.id)
             }
             else {
-                history.push("/dashboard/finance")
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Gagal',
+                    text: 'Email atau password salah',
+                    showConfirmButton: false,
+                    timer: 2000,
+                })
             }
         }
+    }, [login])
 
-    })
+
+    useEffect(() => {
+        if (role) {
+            if (role == "1" || role == 1) {
+                localStorage.setItem('email', login.data.data.email)
+                localStorage.setItem('role', '1')
+                window.location.replace('/dashboard/hc')
+            } else {
+                localStorage.setItem('email', login.data.data.email)
+                localStorage.setItem('role', '2')
+                window.location.replace("/dashboard/finance")
+            }
+        }
+    }, [role])
 
 
     function handleChange(e) {
@@ -140,12 +129,12 @@ const Login = ({ loginEmployee, login, isLoading }) => {
 
         if (!email) {
             isValid_ = false;
-            error_["email"] = "Please enter your email address.";
+            error_["email"] = "Mohon isi email.";
         }
 
         if (!password) {
             isValid_ = false;
-            error_["password"] = "Please enter your password";
+            error_["password"] = "Mohon isi password";
         }
 
         setError(error_)
@@ -166,7 +155,7 @@ const Login = ({ loginEmployee, login, isLoading }) => {
                                 {isLoading ?
                                     <>
                                         <div className="text-center text-md-center mb-2 mt-md-0">
-                                            <h3 className="mt-0">Please Wait a Seconds</h3>
+                                            <h3 className="mt-0">Mohon Tunggu</h3>
                                         </div>
                                         <div className="row">
                                             <div className="col-md-4">
@@ -182,12 +171,12 @@ const Login = ({ loginEmployee, login, isLoading }) => {
                                     </>
                                     :
                                     <div className="text-center text-md-center mb-2 mt-md-0">
-                                        <h3 className="mb-0">Sign in</h3>
+                                        <h3 className="mb-0">Login</h3>
                                     </div>
                                 }
                                 <Form onSubmit={handleSubmit} className="mt-3">
                                     <Form.Group controlId="email" className="mb-2" style={{ width: "300px" }}>
-                                        <Form.Label>Email</Form.Label>
+                                        <Form.Label htmlFor="email">Email</Form.Label>
                                         <InputGroup>
                                             <InputGroup.Text><FontAwesomeIcon icon={faUser} /></InputGroup.Text>
                                             <FormControl id="email"
@@ -201,7 +190,7 @@ const Login = ({ loginEmployee, login, isLoading }) => {
                                         <div className="text-danger">{error.email}</div>
                                     </Form.Group>
                                     <Form.Group controlId="password" className="mb-2" style={{ width: "300px" }}>
-                                        <Form.Label>Password</Form.Label>
+                                        <Form.Label htmlFor="password">Kata Sandi</Form.Label>
                                         <InputGroup>
                                             <InputGroup.Text> <FontAwesomeIcon icon={faUnlockAlt} /></InputGroup.Text>
                                             <FormControl id="password"
@@ -225,7 +214,7 @@ const Login = ({ loginEmployee, login, isLoading }) => {
                                         </InputGroup>
                                         <div className="text-danger">{error.password}</div>
                                     </Form.Group>
-                                    <Button type="submit" value="Sign In"
+                                    <Button type="submit" value="Login"
                                         style={{
                                             backgroundColor: "#292961",
                                             color: "white",
@@ -233,7 +222,7 @@ const Login = ({ loginEmployee, login, isLoading }) => {
                                             width: "300px",
                                             marginBottom: "20px"
                                         }}>
-                                        Sign In
+                                        Login
                                     </Button>
                                     <br />
                                     <div className="row">

@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects'
-import axios from 'axios'
-// import axios from './../configs/api';
+// import axios from 'axios'
+import axios from './../configs/api';
 
 import {
     UPLOAD_FILE, UPLOAD_FILE_SUCCESS, UPLOAD_FILE_FAILURE,
@@ -39,7 +39,7 @@ function* uploadFile(action) {
 
 
 function* findBillById(action) {
-    let result = yield axios.get(`/bill/${action.id}/file`)
+    let result = yield axios.get(`/bill/${action.id}/file/employee`)
         .then(response => {
             return ({
                 type: FIND_BILL_BY_ID_SUCCESS,

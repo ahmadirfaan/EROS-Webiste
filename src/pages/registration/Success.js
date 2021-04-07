@@ -10,8 +10,8 @@ function Success() {
                 </div>
                 <div className="offset-md-4 col-md-6">
                     <div className="card-body">
-                        <h5 className="card-title">Register Success</h5>
-                        <p className="card-text">Please verification your email address to sign in.</p>
+                        <h3>Happy Enigmanians!</h3>
+                        <p className="card-text">Selamat registrasi akun anda telah berhasil.</p>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import {findAll} from "../../actions/dashboardAction";
 import {connect} from "react-redux";
-import {Bar, Doughnut} from "react-chartjs-2";
+import {Doughnut} from "react-chartjs-2";
 import {useEffect} from "react";
 
 function DoughnutFinance({findAll, dashboards, error, isLoading}) {
@@ -10,7 +10,7 @@ function DoughnutFinance({findAll, dashboards, error, isLoading}) {
     }, [])
 
     const state = {
-        labels: ['Kacamata', 'Training', 'Melahirkan',
+        labels: ['Kacamata', 'Pelatihan', 'Melahirkan',
             'Asuransi', 'Perjalanan Dinas'],
         datasets: [
             {
@@ -45,7 +45,7 @@ function DoughnutFinance({findAll, dashboards, error, isLoading}) {
                 options={{
                     title:{
                         display:true,
-                        text:'Jumlah Klaim Pengembalian Dana',
+                        text:'Klaim Pengembalian Dana Berdasarkan Kategori',
                         fontSize:20
                     },
                     legend:{

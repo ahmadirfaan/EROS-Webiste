@@ -1,7 +1,7 @@
 import {findById, save} from "../../../actions/employeeAction";
 import {findAll} from "../../../actions/gradeAction";
 import {connect} from "react-redux";
-import {useHistory, useParams} from "react-router-dom";
+import {Link, useHistory, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {Input, Label, Spinner} from "reactstrap";
 import "../../../assets/css/EmployeeForm.css"
@@ -53,7 +53,7 @@ function EmployeeForm({employee, findById, isLoading, save, findAll, error, grad
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil',
-                text: 'Data karyawan berhasil ditambahkan!',
+                text: 'Data karyawan berhasil diubah!',
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -129,7 +129,7 @@ function EmployeeForm({employee, findById, isLoading, save, findAll, error, grad
                                                                         NIP
                                                                     </Label>
                                                                     <Input onChange={handleChange}
-                                                                           type="text"
+                                                                           type="number"
                                                                            value={data?.nip === null ? '' : data?.nip}
                                                                            name="nip"/>
 
@@ -201,7 +201,7 @@ function EmployeeForm({employee, findById, isLoading, save, findAll, error, grad
                                                                                             selected={element === data?.employeeStatus}
                                                                                             key={index}
                                                                                             value={element}>
-                                                                                            {element}
+                                                                                            {element == 'ACTIVE'? 'AKTIF': "TIDAK AKTIF"}
                                                                                         </option>
                                                                                     )
                                                                                 )

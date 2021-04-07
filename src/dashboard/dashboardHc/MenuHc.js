@@ -1,6 +1,12 @@
 import React from "react";
 import Image1 from "../../assets/image/undraw_female_avatar_w3jk.svg"
 import {Link} from "react-router-dom";
+import { CgList} from 'react-icons/cg';
+import {BiCommentDetail} from 'react-icons/bi'
+import {GiUpgrade} from 'react-icons/gi'
+import {GrMoney} from 'react-icons/gr'
+import {GoHome} from 'react-icons/go'
+
 
 export default function MenuHc() {
     return (
@@ -21,13 +27,14 @@ export default function MenuHc() {
                     <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li className="nav-item has-treeview" >
                             <Link to="/dashboard/hc" className="nav-link active" style={{backgroundColor:"#292961"}}>
-                                <i className="nav-icon fas fa-home" style={{fontSize:"20px"}} />
+                                {/*<i className="nav-icon fas fa-home" style={{fontSize:"20px"}} />*/}
+                                <GoHome className="nav-icon"/>
                                 <p style={{color:"white", fontSize:"20px", fontFamily:"roboto"}}>Beranda</p>
                             </Link>
                         </li>
                         <li className="nav-item has-treeview">
                             <Link to="/dashboard/hc/reimburse" className="nav-link">
-                                <i className="nav-icon fas fa-list" style={{fontSize:"20px"}} />
+                                <GrMoney className="nav-icon"/>
                                 <p style={{color:"black", fontSize:"20px",fontFamily:"roboto"}}>Reimbursement</p>
                             </Link>
                         </li>
@@ -41,19 +48,19 @@ export default function MenuHc() {
                         <ul className="nav nav-treeview">
                             <li className="nav-item">
                                 <Link to="/dashboard/hc/employee" className="nav-link">
-                                    <i className="far fa-bar-chart nav-icon" />
+                                    <CgList className="nav-icon"/>
                                     <p style={{fontFamily:"roboto", fontSize:"18px"}}> Daftar Karyawan</p>
                                 </Link>
                             </li>
                             <li className="nav-item">
                                 <Link to="/dashboard/hc/contract" className="nav-link">
-                                    <i className="far fa-list-alt nav-icon"  />
+                                    <BiCommentDetail className="nav-icon"/>
                                     <p style={{fontFamily:"roboto", fontSize:"18px"}}>Detail Kontrak</p>
                                 </Link>
                             </li>
                             <li className="nav-item">
                                 <Link to="/dashboard/hc/grade" className="nav-link">
-                                    <i className="far fa-list-alt nav-icon" />
+                                    <GiUpgrade className="nav-icon"/>
                                     <p style={{fontFamily:"roboto", fontSize:"18px"}}>Grade</p>
                                 </Link>
                             </li>

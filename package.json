@@ -81,5 +81,6 @@
     "moment-timezone": "^0.5.33",
     "react-bootstrap-table-next": "^4.0.3"
   },
-  "proxy": "http://localhost:8082"
+
+  "proxy": "http://10.10.14.109:8080"
 }

@@ -6,9 +6,10 @@ import {
 } from '../constants/actionConstant';
 
 
-export function findAllReimburse() {
+export function findAllReimburse(page) {
     return {
-        type: FIND_ALL_REIMBURSE
+        type: FIND_ALL_REIMBURSE,
+        page:page
     }
 }
 

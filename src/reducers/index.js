@@ -18,6 +18,7 @@ import { forgotPassword } from './forgotPasswordReducer';
 import { resetPassword } from './resetPasswordReducer';
 import { findAllReimburseFinance, findReimburseFinanceById, updateReimburseFinance, findReimburseFinanceByCategory } from './reimburseFinanceReducer';
 import { uploadFile, findBillById, updateFile } from './billReducer';
+import {findContractByName} from "../sagas/detailContractSagas";
 
 const rootReducer = combineReducers({
     registerEmployees, loginEmployee, forgotPassword, resetPassword,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
     findEmployeeByName,
     uploadFile, findBillById, updateFile,
     findEmployeeByStatus,
+    findContractByName,
 })
 
 export default rootReducer

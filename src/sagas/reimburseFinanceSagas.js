@@ -1,6 +1,6 @@
 import { put, takeLatest } from "redux-saga/effects";
-import axios from "axios";
-// import axios from '../configs/api'
+// import axios from "axios";
+import axios from '../configs/api'
 
 import {
     UPDATE_REIMBURSE_FINANCE_FAILURE, UPDATE_REIMBURSE_FINANCE_SUCCESS, UPDATE_REIMBURSE_FINANCE,
@@ -10,9 +10,10 @@ import {
 } from "../constants/actionConstant";
 
 
-function* findAllReimburseFinance() {
+function* findAllReimburseFinance(action) {
+    action.page -= 1
     let result = yield axios
-        .get('/reimburse/filter-status-finance')
+        .get('/reimburse/page/finance?page=' + action.page)
         .then(response => {
             return {
                 type: FIND_ALL_REIMBURSE_FINANCE_SUCCESS,

@@ -1,5 +1,5 @@
-// import axios from '../configs/api'
-import axios from "axios";
+import axios from '../configs/api'
+// import axios from "axios";
 import {
     FIND_ALL_EMPLOYEE,
     FIND_ALL_EMPLOYEE_FAILURE,
@@ -13,9 +13,6 @@ import {
     FIND_EMPLOYEE_BY_STATUS,
     FIND_EMPLOYEE_BY_STATUS_FAILURE,
     FIND_EMPLOYEE_BY_STATUS_SUCCESS,
-    FIND_VERIFIED_BY_ID,
-    FIND_VERIFIED_BY_ID_FAILURE,
-    FIND_VERIFIED_BY_ID_SUCCESS,
     SAVE_EMPLOYEE,
     SAVE_EMPLOYEE_FAILURE,
     SAVE_EMPLOYEE_SUCCESS,
@@ -27,13 +24,15 @@ import {
 import {put, takeLatest} from "redux-saga/effects";
 
 
-function* findAllEmployee() {
+function* findAllEmployee(action) {
+    action.page -= 1
     let result = yield axios
-        .get('/employee')
+        .get('/employee?page=' + action.page)
         .then(response => {
             return {
                 type: FIND_ALL_EMPLOYEE_SUCCESS,
-                data: response
+                data: response.data,
+                total: response.data.total
             }
         })
         .catch(error => {

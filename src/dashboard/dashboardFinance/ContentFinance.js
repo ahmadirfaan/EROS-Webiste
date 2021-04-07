@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Card, Col, Row} from "react-bootstrap";
 import Image from "../../assets/image/dashboard.svg";
-import ChartGender from "../dashboardHc/contents/ChartGender";
-import DoughnutTypeContract from "../dashboardHc/contents/DoughnutTypeContract";
 import {CardBody} from "reactstrap";
-import LineGraphEmployee from "../dashboardHc/contents/BarChart";
-import DoughnutTypeEmployee from "../dashboardHc/contents/DoughnutTypeEmployee";
 import {findAll} from "../../actions/dashboardAction";
 import {connect} from "react-redux";
 import DoughnutFinance from "./DoughnutFinance";
+import ChartStatus from "./ChartStatus";
 
 function ContentFinance() {
     let year = new Date().getFullYear()
@@ -50,28 +47,39 @@ function ContentFinance() {
         <div>
             <div className="content-wrapper">
                 <Card>
-                    <div className="row">
-                        <div style={{height:"30vh", marginTop:"5vh"}}>
-                            <h3 style={{fontFamily:"roboto, ubuntu, oxygen", marginLeft:"10vh"}}> {useDate().wish} Admin Enigmanians!
-                                <p>
-                                    {useDate().date}
-                                    {year} {''}
-                                    {useDate().time}
-                                </p>
-                            </h3>
-                            <div className="float-right" style={{marginTop:"-20vh", marginRight:"20vh"}}>
-                                <img src={Image} alt="image"/>
-                            </div>
-                        </div>
-                    </div>
+                    <Row className="mt-5">
+                        {/*<div style={{ marginTop:"-2vh"}}>*/}
+                          <Col md={6} xs={6}>
+                              <h3 style={{fontFamily:"roboto, ubuntu, oxygen", marginLeft:"10vh", justifyContent: "center"}}> {useDate().wish} Admin Enigmanians!
+                                  <p>
+                                      {useDate().date}
+                                      {year} {''}
+                                      {useDate().time}
+                                  </p>
+                              </h3>
+                          </Col>
+                          <Col md={6} xs={6}>
+                              <div className="float-right" style={{ marginRight:"50px"}}>
+                                  <img src={Image} alt="image"/>
+                              </div>
+                          </Col>
+                        {/*</div>*/}
+                    </Row>
                 </Card>
 
                         <div>
                             <Row style={{display:"flex", justifyContent:"center"}}>
-                                <Col md={8}>
+                                <Col md={6}>
                                     <Card>
                                         <CardBody>
                                             <DoughnutFinance/>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                                <Col md={6}>
+                                    <Card>
+                                        <CardBody>
+                                            <ChartStatus/>
                                         </CardBody>
                                     </Card>
                                 </Col>

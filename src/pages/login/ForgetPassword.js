@@ -79,13 +79,13 @@ const ForgetPassword = ({ status, forgotPassword, isLoading }) => {
         <div>
 
             <a className="pass" onClick={toggle} href="#" style={{ textAlign: "right", color: "#292961" }}>
-                Forgot Password?
+                Lupa Kata Sandi?
             </a>
 
             <Modal isOpen={modal} toggle={toggle}>
                 {isLoading ?
                     <>
-                        <ModalHeader onClick={toggle} color="#292961" style={{ fontWeight: "bold", fontSize: "20px" }}>Mohon tunggu proses pengecekan</ModalHeader>
+                        <ModalHeader onClick={toggle} color="#292961" style={{ fontWeight: "bold", fontSize: "20px" }}>Mohon tunggu </ModalHeader>
                         <div className="row">
                             <div className="col-md-4">
                                 <ReactLoading type={"bubbles"} color={color} delay={delay} />
@@ -99,19 +99,19 @@ const ForgetPassword = ({ status, forgotPassword, isLoading }) => {
                         </div>
                     </>
                     :
-                    <ModalHeader onClick={toggle} color="#292961" style={{ fontWeight: "bold", fontSize: "20px" }}>Forgot your password ?</ModalHeader>
+                    <ModalHeader onClick={toggle} color="#292961" style={{ fontWeight: "bold", fontSize: "20px" }}>Lupa Kata Sandi ?</ModalHeader>
                 }
                 <Form className="forget" >
                     <div className="formgroup">
                         <label>Email</label>
                         <div style={textDanger}>{error.email}</div>
-                        <input className="form-control" required onChange={handleChange} type="email" name="email" placeholder="example@gmail.com" />
+                        <input className="form-control" required onChange={handleChange} type="email" name="email" placeholder="contoh@gmail.com" />
                     </div>
                 </Form>
 
                 <ModalFooter>
-                    <Button className="btn-submit" onClick={handleSubmit}>Submit</Button>
-                    <Button color="outline-enigma" onClick={toggle}>Cancel</Button>
+                    <Button className="btn-submit" onClick={handleSubmit}>Kirim</Button>
+                    <Button color="outline-enigma" onClick={toggle}>Batal</Button>
                 </ModalFooter>
             </Modal>
         </div>

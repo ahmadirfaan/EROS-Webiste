@@ -10,7 +10,7 @@ function DoughnutTypeContract({findAll, dashboards, error, isLoading}) {
     }, [])
 
     const state = {
-        labels: ['PKWT', 'PROBABITION'],
+        labels: ['PKWT', 'PROBITION'],
         datasets: [
             {
                 label: 'Tipe Kontrak',

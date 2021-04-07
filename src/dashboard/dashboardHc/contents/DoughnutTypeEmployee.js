@@ -10,7 +10,7 @@ function DoughnutTypeEmployee({findAll, dashboards, error, isLoading}) {
     }, [])
 
     const state = {
-        labels: ['PKWT', 'PROBABITION'],
+        labels: ['OFFICE', 'ONSITE'],
         datasets: [
             {
                 label: 'Tipe Kontrak',

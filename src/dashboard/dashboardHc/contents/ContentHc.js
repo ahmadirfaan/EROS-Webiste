@@ -45,26 +45,30 @@ function ContentHc({findAll, dashboards, error, isLoading}) {
     }
 
 
-
     return (
         <div>
             <div className="content-wrapper">
                 <Card>
-                    <div className="row">
-                        <div style={{height:"30vh", marginTop:"5vh"}}>
-                            <h3 style={{fontFamily:"roboto, ubuntu, oxygen", marginLeft:"10vh"}}> {useDate().wish} Super Admin Enigmanians!
+                    <Row className="mt-5">
+                        {/*<div style={{ marginTop:"-2vh"}}>*/}
+                        <Col md={6} xs={6}>
+                            <h3 style={{fontFamily:"roboto, ubuntu, oxygen", marginLeft:"10vh", justifyContent: "center"}}> {useDate().wish} Admin Enigmanians!
                                 <p>
                                     {useDate().date}
                                     {year} {''}
                                     {useDate().time}
                                 </p>
                             </h3>
-                            <div className="float-right" style={{marginTop:"-20vh", marginRight:"20vh"}}>
+                        </Col>
+                        <Col md={6} xs={6}>
+                            <div className="float-right" style={{ marginRight:"50px"}}>
                                 <img src={Image} alt="image"/>
                             </div>
-                        </div>
-                    </div>
+                        </Col>
+                        {/*</div>*/}
+                    </Row>
                 </Card>
+
 
                 <div className="row">
                     <div className="col-12">

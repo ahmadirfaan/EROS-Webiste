@@ -1,31 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
-import { Link } from 'react-router-dom'
 import { findReimburseFinanceId, updateReimburseFinance } from './../../../actions/reimburseFinanceAction';
 import { convert_to_rupiah, convert_date_format } from '../../../utils/converter';
-import { isEmpty } from '../../../utils/validation';
 import { uploadFile, findBillById, updateFile } from './../../../actions/billAction';
+
 
 /* Just for UI */
 import { BiUpload } from "react-icons/bi"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faCheckSquare, faTimes, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Modal, ModalBody } from 'reactstrap';
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { ModalFooter } from 'reactstrap';
 import Swal from 'sweetalert2'
 import { BiIdCard, BiUserPin, BiCheckbox, BiCheckboxChecked, BiMoney, BiCalendar } from "react-icons/bi"
-import { FaRegTimesCircle } from "react-icons/fa"
-import { AiOutlineFilePdf } from "react-icons/ai"
 /* Just for UI */
 
 
 const ReimburseRowFinance = ({
-    element, index,
+    element, index, currentPage,
     reimburse, findReimburseFinanceId,
-    uploadedFile, uploadFile,
     updatedReimburse, updateReimburseFinance,
     bill, findBillById,
     updatedFile, updateFile
@@ -48,12 +40,13 @@ const ReimburseRowFinance = ({
         }
     }, [status])
 
+
     useEffect(() => {
         if (updatedFile) {
             if (updatedFile?.data?.code == 200 || updatedFile?.data?.code == 200) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Success',
+                    title: 'Sukses',
                     text: 'Upload file berhasil',
                     showConfirmButton: false,
                     timer: 1500
@@ -72,10 +65,11 @@ const ReimburseRowFinance = ({
     }, [updatedFile])
 
 
-    /* Tooltip */
-    const renderTooltip = props => (
-        <Tooltip {...props}>Has been validated by admin finance</Tooltip>
-    );
+    const getId = id => {
+        findReimburseFinanceId(id)
+        findBillById(id)
+    }
+
 
     /* Modal */
     const [modal, setModal] = useState(false);
@@ -86,15 +80,12 @@ const ReimburseRowFinance = ({
         setModal2(!modal2);
     }
 
-    const getId = id => {
-        findReimburseFinanceId(id)
-        findBillById(id)
-    }
 
     /* Handle Change File */
     const handleChangeFile = e => {
         setFile(e.target.files[0]);
     }
+
 
     /* Handle Change Status */
     const handleChangeStatus = (value, id) => {
@@ -110,6 +101,7 @@ const ReimburseRowFinance = ({
             })
         }
     }
+
 
     /* Handle Submit Upload File */
     const handleSubmit = () => {
@@ -148,11 +140,11 @@ const ReimburseRowFinance = ({
 
     return (
         <tr>
-            <td>{index + 1}</td>
+            <td>{(currentPage - 1) * 10 + index + 1}</td>
             <td>{element.categoryId.categoryName}</td>
             <td>{element.employeeId.fullname}</td>
             <td>
-                <select className="custom-select td-width text-enigma border-enigma" style={{ width: "135px" }}
+                <select className="custom-select td-width text-enigma border-enigma" style={{ width: "160px" }}
                     onChange={(e) => {
                         handleChangeStatus(e.target.value, element.id)
                     }}>
@@ -163,22 +155,20 @@ const ReimburseRowFinance = ({
             <td>
                 <button className="btn btn-outline-enigma mr-3"
                     onClick={() => {
-                        toggle();
+                        toggle()
                         getId(element?.id);
                     }}>
                     Detail
                 </button>
             </td>
             <td>
-                {element?.statusSuccess ?
-                    <button className="btn btn-outline-enigma"
-                        onClick={() => {
-                            toggle2();
-                            getId(element?.id);
-                        }}>
-                        <BiUpload size="1.2em" />
-                    </button> : ""
-                }
+                <button className="btn btn-outline-enigma"
+                    onClick={() => {
+                        toggle2()
+                        getId(element?.id);
+                    }}>
+                    <BiUpload size="1.2em" />
+                </button>
             </td>
 
 
@@ -287,15 +277,18 @@ const ReimburseRowFinance = ({
                                 <p className="p-enigma">
                                     {reimburse?.dateOfClaimSubmission ? convert_date_format(reimburse.dateOfClaimSubmission) : ""}
                                 </p>
-                            </div >
-                            <div className="col-md-3">
-                                <p className="p-enigma-bold mb-0">
-                                    <BiCalendar size="1.3em" /> Tanggal Mulai
+                            </div>
+                            {
+                                reimburse?.categoryId?.categoryName == "Pelatihan" || reimburse?.categoryId?.categoryName == "Pelatihan" ?
+                                    <div className="col-md-3">
+                                        <p className="p-enigma-bold mb-0">
+                                            <BiCalendar size="1.3em" /> Tanggal Mulai
                                     </p>
-                                <p className="p-enigma">
-                                    {reimburse?.startDate ? convert_date_format(reimburse.startDate) : ""}
-                                </p>
-                            </div >
+                                        <p className="p-enigma">
+                                            {reimburse?.startDate ? convert_date_format(reimburse.startDate) : ""}
+                                        </p>
+                                    </div> : ""
+                            }
                         </div >
 
                         <div className="row">
@@ -307,14 +300,17 @@ const ReimburseRowFinance = ({
                                     {reimburse?.disbursementDate ? convert_date_format(reimburse.disbursementDate) : ""}
                                 </p>
                             </div >
-                            <div className="col-md-3">
-                                <p className="p-enigma-bold mb-0">
-                                    <BiCalendar size="1.3em" /> Tanggal Selesai
-                                    </p>
-                                <p className="p-enigma">
-                                    {reimburse?.endDate ? convert_date_format(reimburse.endDate) : ""}
-                                </p>
-                            </div >
+                            {
+                                reimburse?.categoryId?.categoryName == "Pelatihan" || reimburse?.categoryId?.categoryName == "Pelatihan" ?
+                                    <div className="col-md-3">
+                                        <p className="p-enigma-bold mb-0">
+                                            <BiCalendar size="1.3em" /> Tanggal Selesai
+                                        </p>
+                                        <p className="p-enigma">
+                                            {reimburse?.endDate ? convert_date_format(reimburse.endDate) : ""}
+                                        </p>
+                                    </div> : ""
+                            }
                         </div >
 
                     </div >
@@ -334,14 +330,11 @@ const ReimburseRowFinance = ({
                 <ModalBody>
                     <form encType="multipart/form-data">
                         <div className="row">
-                            {
-                                reimburse?.statusSuccess ?
-                                    <div className="col-md-12">
-                                        <h6 className="text-enigma bold">Upload File</h6>
-                                        <p className="p-enigma mt-0 mb-3">*Format file (PDF/JPG/PNG/JPEG)</p>
-                                        <input onChange={handleChangeFile} multiple name="file" type="file" className="form-control" />
-                                    </div> : ""
-                            }
+                            <div className="col-md-12">
+                                <h6 className="text-enigma bold">Upload File</h6>
+                                <p className="p-enigma mt-0 mb-3">*Format file (PDF/JPG/PNG/JPEG)</p>
+                                <input onChange={handleChangeFile} multiple name="file" type="file" className="form-control" />
+                            </div>
                             <hr />
                             <div className="col-md-12 mb-1">
                                 <button type="button" onClick={toggle2}

@@ -1,11 +1,14 @@
-import axios from "axios";
+import axios from '../configs/api'
+// import axios from "axios";
+
 import {
     FIND_ALL_CONTRACT,
     FIND_ALL_CONTRACT_FAILURE,
     FIND_ALL_CONTRACT_SUCCESS,
     FIND_CONTRACT_BY_ID,
     FIND_CONTRACT_BY_ID_FAILURE,
-    FIND_CONTRACT_BY_ID_SUCCESS,
+    FIND_CONTRACT_BY_ID_SUCCESS, FIND_CONTRACT_BY_NAME, FIND_CONTRACT_BY_NAME_FAILURE,
+    FIND_CONTRACT_BY_NAME_SUCCESS,
     SAVE_CONTRACT,
     SAVE_CONTRACT_FAILURE,
     SAVE_CONTRACT_SUCCESS,
@@ -13,13 +16,15 @@ import {
 } from "../constants/actionConstant";
 import {put, takeLatest} from "redux-saga/effects";
 
-function* findAllContract() {
+function* findAllContract(action) {
+    action.page -= 1
     let result = yield axios
-        .get('/contract')
+        .get('/contract?page='+ action.page)
         .then(response => {
             return {
                 type: FIND_ALL_CONTRACT_SUCCESS,
-                data: response.data
+                data: response.data,
+                total: response.data.total
             }
         })
         .catch(error => {
@@ -60,37 +65,27 @@ function* updateContract(action) {
         data: result
     })
 }
-//
-// function* saveContract(action) {
-//     console.log("SAVE Contract", action)
-//
-//     let model = action.model;
-//     let method = 'POST', url='/contract';
-//     if(model.id) {
-//         method ='PUT'
-//         url =`/${model.id}`
-//     }
-//
-//     let result = yield axios ({
-//         url: url,
-//         method: method,
-//         data: model
-//     }).then(data => {
-//         console.log("SAVE CONTRACT SAGAS", data)
-//         return {
-//             type: SAVE_CONTRACT_SUCCESS,
-//             data: data
-//         }
-//     })
-//         .catch(error => {
-//             console.log("error save sagas", error)
-//             return {
-//                 type: SAVE_CONTRACT_FAILURE,
-//                 error: error
-//             }
-//         })
-//     yield put(result)
-// }
+
+export function* findContractByName(action) {
+    console.log("Find by name", action)
+    let model = action.model;
+    let result = yield axios
+        .post("/contract/filter-name", model)
+        .then(data=> {
+            return {
+                type: FIND_CONTRACT_BY_NAME_SUCCESS,
+                data: data
+            }
+        })
+        .catch(error => {
+            return {
+                type: FIND_CONTRACT_BY_NAME_FAILURE,
+                error: error
+            }
+        })
+    yield put(result)
+}
+
 
 
 function* saveContract(action) {
@@ -112,8 +107,6 @@ function* saveContract(action) {
             }
         })
     yield put(result)
-    // console.log("SAGAS CONTRACT", model.id)
-
 }
 
 export function* watchFindAllContract() {
@@ -127,4 +120,8 @@ export function* watchUpdateContract() {
 }
 export function* watchSaveContract() {
     yield takeLatest(SAVE_CONTRACT, saveContract)
+}
+
+export function* watchFindContractByName() {
+    yield takeLatest(FIND_CONTRACT_BY_NAME, findContractByName)
 }

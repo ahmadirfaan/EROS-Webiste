@@ -9,11 +9,9 @@ import ReimburseList from "../pages/reimburse/ReimburseList";
 import DetailContract from "../pages/detailContract/listForm/DetailContract";
 import Success from "../pages/registration/Success";
 import DetailContractForm from "../pages/detailContract/editForm/DetailContractForm"
-import DashboardFinance from "../SideBar/finance/DashboardFinance";
 import { GradeList } from "../pages/grade";
 import ReimburseListFinance from "../pages/Finance/Reimburse/ReimburseListFinance";
 import Error404 from './../pages/Error/Error404/Error404';
-import VerifiedForm from "../pages/Employee/verified";
 
 
 
@@ -85,11 +83,6 @@ export default [
         exact: true
     },
     {
-        path: '/employee/:id/isVerified',
-        component: <VerifiedForm />,
-        exact: true
-    },
-    {
         path: '/contract/:id',
         component: <DetailContractForm/>,
         exact: true
@@ -105,6 +98,4 @@ export default [
         component: <Error404/>,
         exact: false
     },
-
-
 ]

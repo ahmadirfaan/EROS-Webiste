@@ -13,7 +13,7 @@ function ResetPassword({ status, resetPassword }) {
             Swal.fire({
                 icon: 'success',
                 title: 'Sukses!',
-                text: 'Ubah kata sandi berhasil',
+                text: 'Kata sandi berhasil diubah',
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -75,7 +75,7 @@ function ResetPassword({ status, resetPassword }) {
     return (
         <div>
             <Button variant="white" onClick={handleShow}>
-                Reset Password
+                Ubah Kata Sandi
             </Button>
 
             <Modal show={show} onHide={handleClose}>
@@ -86,15 +86,15 @@ function ResetPassword({ status, resetPassword }) {
                 <Container>
                     <Form>
                         <Form.Group controlId="formBasicPassword" style={{ marginTop: "10px" }}>
-                            <Form.Label >Password</Form.Label>
-                            <Form.Control onChange={handleChange} type="password" placeholder="Enter password" name="password"
+                            <Form.Label >Kata Sandi Baru</Form.Label>
+                            <Form.Control onChange={handleChange} type="password" placeholder="Masukkan kata sandi" name="password"
                             />
                         </Form.Group>
                         <div style={textDanger}>{error.password}</div>
 
                         <Form.Group>
-                            <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control onChange={handleChange} type="password" placeholder="Password" name="confirmPassword" />
+                            <Form.Label>Konfirmasi Kata Sandi Baru</Form.Label>
+                            <Form.Control onChange={handleChange} type="password" placeholder="Masukkan ulang kata sandi" name="confirmPassword" />
                         </Form.Group>
                         <div style={textDanger}>{error.confirm_password}</div>
                     </Form>

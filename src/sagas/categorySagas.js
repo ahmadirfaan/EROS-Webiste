@@ -1,5 +1,5 @@
-import axios from "axios";
-// import axios from '../configs/api'
+// import axios from "axios";
+import axios from '../configs/api'
 import {put, takeLatest} from "redux-saga/effects";
 import { FIND_ALL_EMPLOYEE_FAILURE, FIND_ALL_CATEGORY_SUCCESS, FIND_ALL_CATEGORY } from './../constants/actionConstant';
 
